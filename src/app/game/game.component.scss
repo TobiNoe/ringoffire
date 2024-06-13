@@ -1,0 +1,23 @@
+.playground {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background-image: url(../../../public/assets/img/board.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.card-stack {
+
+    position: relative;
+    left: 20vw;
+
+    >img {
+        position: absolute;
+        width: 180px;
+
+    }
+}
