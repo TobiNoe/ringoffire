@@ -3,7 +3,11 @@
         @for (card of [0,1,2,3,4]; track i; let i = $index) {
         <img [ngStyle]="{'left.px': i * 5}" src="./assets/img/cards/card_cover.png" alt="">
         }
-        <img (click)="takeCard()" [class.pick-card]="pickCardAnimation" class="top-card" style="left: 25px" src="./assets/img/cards/card_cover.png" alt="">
+        <img (click)="takeCard()" class="top-card" style="left: 25px" src="./assets/img/cards/card_cover.png" alt="">
+        @if (pickCardAnimation) {
+            <img class="pick-card" style="left: 25px" src="./assets/img/cards/ace_1.png" alt="">
+        }
+        
     </div>
 
 </div>
