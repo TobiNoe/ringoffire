@@ -1,0 +1,20 @@
+@import '../../styles.scss';
+
+.player {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    background-color: #EADCC5;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    span {
+        margin-left: 8px;
+        font-size: 24px;
+    }
+
+    img {
+        @include imageSize(80px, 80px);
+        margin: 8px;
+    }
+}
