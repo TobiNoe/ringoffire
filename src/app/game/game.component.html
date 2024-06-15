@@ -1,13 +1,25 @@
 <div class="playground">
     <div class="card-stack">
+
+        <!-- Card Stack -->
         @for (card of [0,1,2,3,4]; track i; let i = $index) {
         <img [ngStyle]="{'left.px': i * 5}" src="./assets/img/cards/card_cover.png" alt="">
         }
+
         <img (click)="takeCard()" class="top-card" style="left: 25px" src="./assets/img/cards/card_cover.png" alt="">
-        @if (pickCardAnimation) {
-            <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{currentCard}}" alt="">
+
+        <!-- Stack for played Cards -->
+        @for (card of game.playedCards; track card) {
+        <img class="played-card" src="./assets/img/cards/{{card}}" alt="">
         }
-        
+
+        <!-- Stack for currentCard (Animation) -->
+        @if (pickCardAnimation) {
+        <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{currentCard}}" alt="">
+        }
+
+
+
     </div>
 
 </div>
