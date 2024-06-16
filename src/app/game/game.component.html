@@ -1,7 +1,7 @@
-<app-player class="player-position" style="top: 8px"></app-player>
-<app-player class="player-position" style="top: 105px"></app-player>
-<app-player class="player-position" style="top: 202px"></app-player>
-<app-player class="player-position" style="top: 299px"></app-player>
+@for (player of game.players; track $index) {
+    <app-player [name]="player" [ngStyle]="{'top.px': 8 + $index * 96 + $index}" class="player-position" style="top: 8px"></app-player>
+}
+
 <div class="playground">
     <div class="card-stack">
 
