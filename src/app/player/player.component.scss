@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     width: 300px;
-    background-color:  transparentize($color: whitesmoke  , $amount: 0.4);
+    background-color:  transparentize($color: whitesmoke  , $amount: 0.1);
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 
@@ -16,7 +16,17 @@
     }
 
     >img {
-        @include imageSize(80px, 80px);
+        @include imageSize(50px, 50px);
         margin: 8px;
     }
+}
+
+.player-active {
+
+    background-color:  whitesmoke !important;
+
+    >img {
+        @include imageSize(70px, 70px);
+    }
+
 }
