@@ -4,16 +4,18 @@
     display: flex;
     align-items: center;
     width: 300px;
-    background-color: #EADCC5;
+    background-color:  transparentize($color: whitesmoke  , $amount: 0.4);
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 
     span {
         margin-left: 8px;
-        font-size: 24px;
+        font-size: 32px;
+        color: black;
+        font-weight: bold
     }
 
-    img {
+    >img {
         @include imageSize(80px, 80px);
         margin: 8px;
     }
