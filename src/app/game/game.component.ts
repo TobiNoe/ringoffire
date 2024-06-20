@@ -11,7 +11,7 @@ import { GameInfoComponent } from './game-info/game-info.component';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, PlayerComponent, MatButtonModule, MatIconModule , DialogAddPlayerComponent, GameInfoComponent],
+  imports: [CommonModule, PlayerComponent, MatButtonModule, MatIconModule, DialogAddPlayerComponent, GameInfoComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -51,8 +51,9 @@ export class GameComponent {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      this.game.players.push(name);
-      /* console.log('The dialog was closed', result); */
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+      }
     });
   }
 

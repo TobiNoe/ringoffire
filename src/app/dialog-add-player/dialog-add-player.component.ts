@@ -32,8 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 export class DialogAddPlayerComponent {
   readonly dialogRef = inject(MatDialogRef<DialogAddPlayerComponent>);
   name: string = '';
-  /* readonly data = inject<DialogData>(MAT_DIALOG_DATA); */
-
+  
   onNoClick(): void {
     this.dialogRef.close();
   }
