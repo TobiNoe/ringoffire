@@ -1,6 +1,6 @@
 @for (player of game.players; track $index) {
-<app-player [activePlayer]="$index == game.currentPlayer" [name]="player" [ngStyle]="{'top.px': 96 + $index * 96 + $index}" class="player-position"
-    style="top: 8px"></app-player>
+<app-player [activePlayer]="$index == game.currentPlayer" [name]="player"
+    [ngStyle]="{'top.px': 96 + $index * 96 + $index}" class="player-position" style="top: 8px"></app-player>
 }
 
 <div class="playground">
@@ -15,18 +15,18 @@
 
         <!-- Stack for played Cards -->
         @for (card of game.playedCards; track card) {
-        <img class="played-card" src="./assets/img/cards/{{card}}" alt="">
+        <img class="played-card" src="./assets/img/cards/{{card}}.png" alt="">
         }
 
         <!-- Stack for currentCard (Animation) -->
         @if (pickCardAnimation) {
-        <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{currentCard}}" alt="">
+        <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{currentCard}}.png" alt="">
         }
 
     </div>
 </div>
 
-<app-game-info></app-game-info>
+<app-game-info [card]="currentCard"></app-game-info>
 
 <button mat-fab aria-label="Add Button" (click)="openDialog()" class="btn-add">
     <mat-icon>add</mat-icon>

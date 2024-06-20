@@ -17,7 +17,7 @@ import { GameInfoComponent } from './game-info/game-info.component';
 })
 export class GameComponent {
   pickCardAnimation = false;
-  currentCard: String = '';
+  currentCard: string = '';
   game: any;
   readonly dialog = inject(MatDialog);
 
