@@ -7,7 +7,7 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { GameInfoComponent } from './game-info/game-info.component';
-import { collection, doc, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -22,17 +22,27 @@ export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game: any;
-  unsubGame;
+  gameID: string = "";
+  unsubGame: any;
   
 
   constructor() {
     this.newGame();
-    this.unsubGame = this.readGame();
+    this.addGame();
+    /* this.unsubGame = this.readGame(this.gameID); */
+  }
+
+  async addGame() {
+    const docRef = await addDoc(this.getGamesRef(), this.game.toJSON());
+    this.gameID =  docRef.id;
+    console.log(this.gameID);
+    
+    this.unsubGame = this.readGame(this.gameID);
   }
 
   //doc() function kann durch getSingleGameRef ersetz werden
-  readGame() {
-    return onSnapshot(doc(this.getGamesRef(), "sOOqOFUovSBy3bg4ooNJ"), (doc) => {
+  readGame(gameID: string) {
+    return onSnapshot(doc(this.getGamesRef(), gameID), (doc) => {
       console.log("Current data: ", doc.data());
     });
   }
