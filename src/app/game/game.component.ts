@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { addDoc, collection, doc, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../services/game.service';
 
 @Component({
   selector: 'app-game',
@@ -23,66 +24,22 @@ export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game: any;
-  gameID: string = "";
-  unsubGame: any;
+  /* gameID: string = ""; */
+  /* unsubGame: any; */
 
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private gameservice: GameService, private route: ActivatedRoute) {
     this.newGame();
     this.route.params.subscribe((params) => {
-      if (params['gameID'] == 'new') {
-        this.addGame();
-      } else {
-        this.unsubGame = this.readGame(params['gameID']);
-        console.log("Game:", this.game);
-      }
+
+      gameservice.unsubGame = gameservice.readGame(params['gameID'], this.game);
+
+      console.log("Game.Component:", this.game);
       console.log("URL-ID", params['gameID']);
 
     });
     /* this.addGame(); */
     /* this.unsubGame = this.readGame(this.gameID); */
-  }
-
-  ngOnDestroy() {
-    this.unsubGame();
-  }
-
-  async addGame() {
-    const docRef = await addDoc(this.getGamesRef(), this.game.toJSON());
-    this.gameID = docRef.id;
-    console.log("Game-Firebase-ID", this.gameID);
-    this.unsubGame = this.readGame(this.gameID);
-  }
-
-  //doc() function kann durch getSingleGameRef ersetz werden
-  readGame(gameID: string) {
-    return onSnapshot(doc(this.getGamesRef(), gameID), (doc) => {
-      const data = { ...doc.data() }
-      this.game.players = data['players'];
-      this.game.stack = data['stack'];
-      this.game.playedCards = data['playedCards'];
-      this.game.currentPlayer = data['currentPlayer'];
-      console.log("Current data: ", doc.data());
-      /* console.log("Current ID: ", doc.id);
-      console.log(data['stack']); */
-    });
-  }
-
-  /* subTrashList() {
-    return onSnapshot(this.getTrashRef(), (list) => {
-      this.trashNote = [];
-      list.forEach(element => {
-        this.trashNote.push(this.setNoteObject(element.data(), element.id));
-      });
-    });
-  } 
- */
-  getGamesRef() {
-    return collection(this.firestore, 'games');
-  }
-
-  getSingleGameRef(docID: string) {
-    return doc(this.getGamesRef(), docID);
   }
 
   takeCard() {
@@ -104,7 +61,7 @@ export class GameComponent {
   }
 
   newGame() {
-    this.game = new Game();
+    this.game = this.gameservice.newGame();
   }
 
   openDialog(): void {
