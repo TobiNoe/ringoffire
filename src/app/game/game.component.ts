@@ -31,11 +31,11 @@ export class GameComponent {
   constructor(private gameservice: GameService, private route: ActivatedRoute) {
     this.newGame();
     this.route.params.subscribe((params) => {
-
-      gameservice.unsubGame = gameservice.readGame(params['gameID'], this.game);
+      gameservice.gameID = params['gameID'];
+      gameservice.unsubGame = gameservice.readGame(this.game);
 
       console.log("Game.Component:", this.game);
-      console.log("URL-ID", params['gameID']);
+      console.log("URL-ID", gameservice.gameID);
 
     });
     /* this.addGame(); */
@@ -46,16 +46,14 @@ export class GameComponent {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop();
       this.pickCardAnimation = true;
-
-      /* console.log('New Card: ' + this.currentCard);
-      console.log('Game is', this.game); */
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-
+      this.gameservice.saveGame(this.game);
 
       setTimeout(() => {
         this.pickCardAnimation = false;
         this.game.playedCards.push(this.currentCard);
+        this.gameservice.saveGame(this.game);
       }, 1250);
     }
   }
@@ -70,6 +68,7 @@ export class GameComponent {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.gameservice.saveGame(this.game);
       }
     });
   }

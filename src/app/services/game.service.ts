@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, doc, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Game } from '../models/game';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Game } from '../models/game';
 export class GameService {
 
   firestore: Firestore = inject(Firestore);
-  game: any;
+  /* game: any; */
   gameID: string = "";
   unsubGame: any;
 
@@ -31,17 +31,19 @@ export class GameService {
   }
 
   //doc() function kann durch getSingleGameRef ersetz werden
-  readGame(gameID: string, game: any) {
-    return onSnapshot(doc(this.getGamesRef(), gameID), (doc) => {
+  readGame(game: any) {
+    return onSnapshot(doc(this.getGamesRef(), this.gameID), (doc) => {
       const data = { ...doc.data() };
       game.players = data['players'];
       game.stack = data['stack'];
       game.playedCards = data['playedCards'];
       game.currentPlayer = data['currentPlayer'];
-      console.log("Game.Service: ", game);
-      /* console.log("Current ID: ", doc.id);
-      console.log(data['stack']); */
+      console.log("readGame() ID: ", doc.id);
     });
+  }
+
+  async saveGame(game: any) {
+    await updateDoc(this.getSingleGameRef(this.gameID), game.toJSON());
   }
 
   getGamesRef() {

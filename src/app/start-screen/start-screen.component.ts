@@ -19,13 +19,11 @@ export class StartScreenComponent {
   }
 
   async newGame() {
-    // Erstellen Sie ein neues Spielobjekt
     const newGameInstance = this.gameservice.newGame();
 
-    // Fügen Sie das Spiel hinzu und warten Sie auf die Rückgabe der ID
     try {
       const id = await this.gameservice.addGame(newGameInstance);
-      console.log('start-screen ', id);
+      /* console.log('start-screen ', id); */
       this.router.navigateByUrl('/game/'+ id);
 
     } catch (error) {
