@@ -38,7 +38,10 @@ export class GameService {
       game.stack = data['stack'];
       game.playedCards = data['playedCards'];
       game.currentPlayer = data['currentPlayer'];
-      console.log("readGame() ID: ", doc.id);
+      game.pickCardAnimation = data['pickCardAnimation'];
+      game.currentCard = data['currentCard'];
+      /* console.log("readGame() ID: ", doc.id);
+      console.log("currentPlayer: ", game.currentPlayer); */
     });
   }
 

@@ -19,14 +19,14 @@
         }
 
         <!-- Stack for currentCard (Animation) -->
-        @if (pickCardAnimation) {
-        <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{currentCard}}.png" alt="">
+        @if (game.pickCardAnimation) {
+        <img class="pick-card" style="left: 25px" src="./assets/img/cards/{{game.currentCard}}.png" alt="">
         }
 
     </div>
 </div>
 
-<app-game-info [card]="currentCard"></app-game-info>
+<app-game-info [card]="game.currentCard"></app-game-info>
 
 <button mat-fab aria-label="Add Button" (click)="openDialog()" class="btn-add">
     <mat-icon>add</mat-icon>

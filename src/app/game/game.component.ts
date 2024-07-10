@@ -21,8 +21,7 @@ import { GameService } from '../services/game.service';
 export class GameComponent {
   readonly dialog = inject(MatDialog);
   firestore: Firestore = inject(Firestore);
-  pickCardAnimation = false;
-  currentCard: string = '';
+
   game: any;
   /* gameID: string = ""; */
   /* unsubGame: any; */
@@ -43,18 +42,19 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop();
-      this.pickCardAnimation = true;
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+    if (!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop();
+      this.game.pickCardAnimation = true;
       this.gameservice.saveGame(this.game);
 
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+
       setTimeout(() => {
-        this.pickCardAnimation = false;
-        this.game.playedCards.push(this.currentCard);
+        this.game.pickCardAnimation = false;
+        this.game.playedCards.push(this.game.currentCard);
         this.gameservice.saveGame(this.game);
-      }, 1250);
+      }, 1500);
     }
   }
 
