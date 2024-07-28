@@ -45,11 +45,9 @@ export class GameComponent {
     if (!this.game.pickCardAnimation) {
       this.game.currentCard = this.game.stack.pop();
       this.game.pickCardAnimation = true;
-      this.gameservice.saveGame(this.game);
-
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-
+      this.gameservice.saveGame(this.game);
       setTimeout(() => {
         this.game.pickCardAnimation = false;
         this.game.playedCards.push(this.game.currentCard);
