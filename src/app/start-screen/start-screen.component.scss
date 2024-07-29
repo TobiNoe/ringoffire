@@ -16,14 +16,27 @@
         border-radius: 50%;
         padding: 35px;
 
-        &:hover{
+        &:hover {
             cursor: pointer;
-        padding: 45px;
+            padding: 45px;
         }
 
         >img {
             @include imageSize(150px, 150px);
         }
 
+        @media (max-width: 500px) {
+
+            border-radius: 50%;
+            padding: 22px;
+
+            >img {
+                @include imageSize(105px, 105px);
+            }
+
+        }
+
     }
+
+
 }
